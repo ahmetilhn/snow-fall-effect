@@ -29,11 +29,20 @@ class SnowFall {
   get commonCSS(): string {
     return `
         @keyframes topToBottom {
-            from{
+            0%{
                 transform: translate(0, 0);
             }
-            to{
-                transform: translate(500px, 100vh);
+            25%{
+                transform: translate(50px, 25vh);
+            }
+            50%{
+              transform: translate(0, 50vh);
+            }
+            75%{
+              transform: translate(-50px, 75vh);
+            }
+            100%{
+              transform: translate(0, 100vh);
             }
         }
         @keyframes rotate {
@@ -60,13 +69,14 @@ class SnowFall {
       width: ${width}px;
       height: ${width}px;
       animation: rotate 5s linear forwards infinite;
+      fill: #fff;
       `,
       subContainer: `
       width: ${width}px;
       height: ${width}px;
         position: absolute;
         left: ${this.cordinate.left - 30}px;
-      animation: topToBottom 5s linear forwards infinite;
+      animation: topToBottom 10s linear forwards infinite;
       transform-origin: 50% 50%;
       display: flex;
         justify-content: center;
@@ -86,11 +96,23 @@ class SnowFall {
     return elem as HTMLDivElement;
   }
 
+  remove = (id: string) => {
+    const elem = document.getElementById(id);
+    if (elem) {
+      setTimeout(() => {
+        elem.remove();
+      }, 10000);
+    }
+  };
+
   inner = () => {
+    const randomID = new Date().getTime().toString();
     const subContainer = document.createElement("div");
+    subContainer.setAttribute("id", randomID);
     this.container.appendChild(subContainer);
     subContainer.setAttribute("style", this.styles.subContainer);
     subContainer.innerHTML += this.icon;
+    this.remove(randomID);
   };
 
   makeItRain = () => {

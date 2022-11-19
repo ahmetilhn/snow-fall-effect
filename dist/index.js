@@ -12,11 +12,22 @@ var SnowFall = /** @class */ (function () {
             div.classList.add("snow-fall-container");
             document.body.appendChild(div);
         };
+        this.remove = function (id) {
+            var elem = document.getElementById(id);
+            if (elem) {
+                setTimeout(function () {
+                    elem.remove();
+                }, 10000);
+            }
+        };
         this.inner = function () {
+            var randomID = new Date().getTime().toString();
             var subContainer = document.createElement("div");
+            subContainer.setAttribute("id", randomID);
             _this.container.appendChild(subContainer);
             subContainer.setAttribute("style", _this.styles.subContainer);
             subContainer.innerHTML += _this.icon;
+            _this.remove(randomID);
         };
         this.makeItRain = function () {
             setInterval(function () {
@@ -57,7 +68,7 @@ var SnowFall = /** @class */ (function () {
     });
     Object.defineProperty(SnowFall.prototype, "commonCSS", {
         get: function () {
-            return "\n        @keyframes topToBottom {\n            from{\n                transform: translate(0, 0);\n            }\n            to{\n                transform: translate(500px, 100vh);\n            }\n        }\n        @keyframes rotate {\n            from{\n                transform: rotate(0deg);\n            }\n            to{\n                transform: rotate(360deg);\n            }\n        }\n    ";
+            return "\n        @keyframes topToBottom {\n            0%{\n                transform: translate(0, 0);\n            }\n            25%{\n                transform: translate(50px, 25vh);\n            }\n            50%{\n              transform: translate(0, 50vh);\n            }\n            75%{\n              transform: translate(-50px, 75vh);\n            }\n            100%{\n              transform: translate(0, 100vh);\n            }\n        }\n        @keyframes rotate {\n            from{\n                transform: rotate(0deg);\n            }\n            to{\n                transform: rotate(360deg);\n            }\n        }\n    ";
         },
         enumerable: false,
         configurable: true
@@ -66,8 +77,8 @@ var SnowFall = /** @class */ (function () {
         get: function () {
             var width = this.width;
             return {
-                svg: "\n      width: ".concat(width, "px;\n      height: ").concat(width, "px;\n      animation: rotate 5s linear forwards infinite;\n      "),
-                subContainer: "\n      width: ".concat(width, "px;\n      height: ").concat(width, "px;\n        position: absolute;\n        left: ").concat(this.cordinate.left - 30, "px;\n      animation: topToBottom 5s linear forwards infinite;\n      transform-origin: 50% 50%;\n      display: flex;\n        justify-content: center;\n        align-items: center;\n    "),
+                svg: "\n      width: ".concat(width, "px;\n      height: ").concat(width, "px;\n      animation: rotate 5s linear forwards infinite;\n      fill: #fff;\n      "),
+                subContainer: "\n      width: ".concat(width, "px;\n      height: ").concat(width, "px;\n        position: absolute;\n        left: ").concat(this.cordinate.left - 30, "px;\n      animation: topToBottom 10s linear forwards infinite;\n      transform-origin: 50% 50%;\n      display: flex;\n        justify-content: center;\n        align-items: center;\n    "),
             };
         },
         enumerable: false,

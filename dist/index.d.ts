@@ -14,6 +14,7 @@ declare class SnowFall {
     };
     createContainer: () => void;
     get container(): HTMLDivElement;
+    remove: (id: string) => void;
     inner: () => void;
     makeItRain: () => void;
     init: () => void;
