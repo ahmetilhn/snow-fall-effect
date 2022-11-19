@@ -1,0 +1,16 @@
+{
+  "name": "snow-fall",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "repository": "https://github.com/ahmetilhan24/snow-fall.git",
+  "author": "Ahmet ilhan <ahmetilhan.dev@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "description": "snowfall effect script for website",
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  },
+  "scripts": {
+    "build": "tsc --watch"
+  }
+}
