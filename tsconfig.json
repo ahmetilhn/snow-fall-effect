@@ -1,14 +1,17 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
     "target": "es6",
-    "removeComments": true,
-    "noImplicitAny": false,
-    "rootDir": "./lib",
-    "declaration": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": ["es2016", "esnext", "dom"],
+    "outDir": "dist",
     "strict": true,
-    "outDir": "./dist",
-    "esModuleInterop": true
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true
   },
   "include": ["lib/**/*.ts"]
 }
