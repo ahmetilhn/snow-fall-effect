@@ -6,8 +6,13 @@ declare class SnowFall {
     };
     get width(): number;
     get icon(): string;
-    get style(): string;
-    createContainer: () => HTMLDivElement;
+    get commonCSS(): string;
+    injectCommonCSS: () => void;
+    get styles(): {
+        svg: string;
+        subContainer: string;
+    };
+    createContainer: () => void;
     get container(): HTMLDivElement;
     inner: () => void;
     makeItRain: () => void;
