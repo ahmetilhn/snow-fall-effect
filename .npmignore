@@ -1,0 +1,10 @@
+node_modules
+demo
+.git
+.gitignore
+.npmignore
+tsconfig.json
+yarn.lock
+yarn.error.log
+lib
+
