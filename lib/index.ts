@@ -1,9 +1,14 @@
+import snowFallConfig from "./config/snow-fall.config.js";
+import config from "./types/config.type.js";
 import { getRandomArbitrary } from "./utils/random.util.js";
 class SnowFall {
-  constructor() {
+  config: config = snowFallConfig;
+  constructor(_config: config) {
     this.init();
+    if (_config) {
+      Object.assign(this.config, _config);
+    }
   }
-
   get cordinate(): { left: number; top: number } {
     const { innerHeight, innerWidth } = window;
     return {
@@ -11,11 +16,15 @@ class SnowFall {
       top: getRandomArbitrary(0, innerHeight),
     };
   }
-
   get width(): number {
+    if (this.config.sizeRange) {
+      return getRandomArbitrary(
+        this.config.sizeRange[0],
+        this.config.sizeRange[1]
+      );
+    }
     return getRandomArbitrary(10, 20);
   }
-
   get icon() {
     return `<svg style="${this.styles.svg}" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
     <g>
@@ -25,7 +34,6 @@ class SnowFall {
     </g>
     </svg>`;
   }
-
   get commonCSS(): string {
     return `
         @keyframes topToBottom {
@@ -53,74 +61,77 @@ class SnowFall {
                 transform: rotate(360deg);
             }
         }
+        .snow-fall-container{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
     `;
   }
-
   injectCommonCSS = () => {
     const style = document.createElement("style");
     style.innerHTML = this.commonCSS;
     document.head.appendChild(style);
   };
-
   get styles(): { svg: string; subContainer: string } {
     const width = this.width;
+    const height = width;
     return {
       svg: `
       width: ${width}px;
-      height: ${width}px;
-      animation: rotate 5s linear forwards infinite;
-      fill: #fff;
+      height: ${height}px;
+      animation: rotate ${this.config.speed / 2}s linear forwards infinite;
+      fill: ${this.config.color};
       `,
       subContainer: `
       width: ${width}px;
-      height: ${width}px;
+      height: ${height}px;
         position: absolute;
         left: ${this.cordinate.left - 30}px;
-      animation: topToBottom 10s linear forwards infinite;
+      animation: topToBottom ${this.config.speed}s linear forwards infinite;
       transform-origin: 50% 50%;
       display: flex;
-        justify-content: center;
-        align-items: center;
+      justify-content: center;
+      align-items: center;
     `,
     };
   }
-
   createContainer = (): void => {
     const div = document.createElement("div");
     div.classList.add("snow-fall-container");
     document.body.appendChild(div);
   };
-
   get container(): HTMLDivElement {
     const elem = document.querySelector(".snow-fall-container");
     return elem as HTMLDivElement;
   }
-
   remove = (id: string) => {
     const elem = document.getElementById(id);
     if (elem) {
       setTimeout(() => {
         elem.remove();
-      }, 10000);
+      }, this.config.speed * getRandomArbitrary(700, 1000));
     }
   };
-
-  inner = () => {
+  createSubContainer = () => {
+    const div = document.createElement("div");
+    div.classList.add("snow-fall-sub-container");
+    div.style.cssText = this.styles.subContainer;
+    this.container.appendChild(div);
+    return div;
+  };
+  createSnow = () => {
+    const subContainer = this.createSubContainer();
     const randomID = new Date().getTime().toString();
-    const subContainer = document.createElement("div");
     subContainer.setAttribute("id", randomID);
-    this.container.appendChild(subContainer);
-    subContainer.setAttribute("style", this.styles.subContainer);
     subContainer.innerHTML += this.icon;
     this.remove(randomID);
   };
-
   makeItRain = () => {
     setInterval(() => {
-      this.inner();
-    }, 1000);
+      this.createSnow();
+    }, 1500);
   };
-
   init = () => {
     this.injectCommonCSS();
     this.createContainer();
