@@ -8,6 +8,7 @@
     "node": true
   },
   "rules": {
-    "@typescript-eslint/no-this-alias": "off"
+    "@typescript-eslint/no-this-alias": "off",
+    "@typescript-eslint/no-var-requires": 0
   }
 }
