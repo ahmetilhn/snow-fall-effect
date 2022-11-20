@@ -1,4 +1,4 @@
-# Snow Fall
+# Snow Fall Effect
 
 _It provides a realistic snowfall effect to your site to make your websites look more aesthetic during the winter months._
 
@@ -61,4 +61,4 @@ new SnowFall({
 });
 ```
 
-*_Coded by ahmetilhan_*
+_*Coded by ahmetilhan*_
