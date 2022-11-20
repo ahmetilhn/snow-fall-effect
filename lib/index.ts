@@ -4,10 +4,10 @@ import { getRandomArbitrary } from "./utils/random.util.js";
 class SnowFall {
   config: config = snowFallConfig;
   constructor(_config: config) {
-    this.init();
     if (_config) {
       Object.assign(this.config, _config);
     }
+    this.init();
   }
   get cordinate(): { left: number; top: number } {
     const { innerHeight, innerWidth } = window;
@@ -17,7 +17,7 @@ class SnowFall {
     };
   }
   get width(): number {
-    if (this.config.sizeRange) {
+    if (this.config.sizeRange && this.config.sizeRange[0] > 0) {
       return getRandomArbitrary(
         this.config.sizeRange[0],
         this.config.sizeRange[1]
@@ -25,7 +25,7 @@ class SnowFall {
     }
     return getRandomArbitrary(10, 20);
   }
-  get icon() {
+  get icon(): string {
     return `<svg style="${this.styles.svg}" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
     <g>
         <g>
@@ -105,7 +105,7 @@ class SnowFall {
     const elem = document.querySelector(".snow-fall-container");
     return elem as HTMLDivElement;
   }
-  remove = (id: string) => {
+  remove = (id: string): void => {
     const elem = document.getElementById(id);
     if (elem) {
       setTimeout(() => {
@@ -113,7 +113,7 @@ class SnowFall {
       }, this.config.speed * getRandomArbitrary(700, 1000));
     }
   };
-  createSubContainer = () => {
+  createSubContainer = (): HTMLElement => {
     const div = document.createElement("div");
     div.classList.add("snow-fall-sub-container");
     div.style.cssText = this.styles.subContainer;
@@ -121,8 +121,8 @@ class SnowFall {
     return div;
   };
   createSnow = () => {
-    const subContainer = this.createSubContainer();
-    const randomID = new Date().getTime().toString();
+    const subContainer: HTMLElement = this.createSubContainer();
+    const randomID: string = new Date().getTime().toString();
     subContainer.setAttribute("id", randomID);
     subContainer.innerHTML += this.icon;
     this.remove(randomID);
@@ -135,7 +135,9 @@ class SnowFall {
   init = () => {
     this.injectCommonCSS();
     this.createContainer();
-    this.makeItRain();
+    setTimeout(() => {
+      this.makeItRain();
+    }, 500);
   };
 }
 
