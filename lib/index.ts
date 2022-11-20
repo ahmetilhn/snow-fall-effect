@@ -1,6 +1,6 @@
-import snowFallConfig from "./config/snow-fall.config.js";
-import config from "./types/config.type.js";
-import { getRandomArbitrary } from "./utils/random.util.js";
+import snowFallConfig from "./config/snow-fall.config";
+import config from "./types/config.type";
+import { getRandomArbitrary } from "./utils/random.util";
 class SnowFall {
   config: config = snowFallConfig;
   constructor(_config: config) {
