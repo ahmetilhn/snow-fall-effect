@@ -120,20 +120,24 @@ class SnowFall {
     this.container.appendChild(div);
     return div;
   };
-  createSnow = () => {
+  createSnow = (): void => {
     const subContainer: HTMLElement = this.createSubContainer();
     const randomID: string = new Date().getTime().toString();
     subContainer.setAttribute("id", randomID);
     subContainer.innerHTML += this.icon;
     this.remove(randomID);
   };
-  rainInterval = () => {
+  rainInterval = (): void => {
     this.interval = setInterval(this.createSnow, 1000 / this.config.density);
   };
   makeItRain = (): void => {
-    this.rainInterval();
+    if (this.container) {
+      this.rainInterval();
+      return;
+    }
+    console.error("SnowFall: Container not found");
   };
-  init = () => {
+  init = (): void => {
     this.injectCommonCSS();
     this.createContainer();
   };
