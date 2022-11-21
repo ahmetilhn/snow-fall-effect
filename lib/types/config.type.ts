@@ -1,8 +1,8 @@
-type config = {
+type ConfigType = {
   sizeRange: [number, number];
   color: string;
   speed: number;
   density: number;
 };
 
-export default config;
+export default ConfigType;

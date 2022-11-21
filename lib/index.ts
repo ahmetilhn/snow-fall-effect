@@ -1,9 +1,10 @@
 import snowFallConfig from "./config/snow-fall.config";
-import config from "./types/config.type";
+import ConfigType from "./types/config.type";
 import { getRandomArbitrary } from "./utils/random.util";
 class SnowFall {
-  config: config = snowFallConfig;
-  constructor(_config: config) {
+  config: ConfigType = snowFallConfig;
+  interval: ReturnType<typeof setInterval>;
+  constructor(_config: ConfigType) {
     if (_config) {
       Object.assign(this.config, _config);
     }
@@ -126,20 +127,27 @@ class SnowFall {
     subContainer.innerHTML += this.icon;
     this.remove(randomID);
   };
-  rainInterval = setInterval(
-    this.createSnow,
-    (this.config.density * 10 * 1000) / 2
-  );
+  rainInterval = () => {
+    this.interval = setInterval(this.createSnow, 1000 / this.config.density);
+  };
   makeItRain = (): void => {
-    this.rainInterval;
+    this.rainInterval();
   };
   init = () => {
     this.injectCommonCSS();
     this.createContainer();
-    this.makeItRain();
+  };
+  clear = (): void => {
+    const elem = document.querySelectorAll(".snow-fall-container");
+    elem.forEach((item) => {
+      item.remove();
+    });
   };
   public stopTheRain = (): void => {
-    clearInterval(this.rainInterval);
+    clearInterval(this.interval);
+    setTimeout(() => {
+      this.clear();
+    }, this.config.speed * 1000);
   };
 }
 
