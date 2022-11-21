@@ -117,6 +117,9 @@ class SnowFall {
     const div = document.createElement("div");
     div.classList.add("snow-fall-sub-container");
     div.style.cssText = this.styles.subContainer;
+    if (!this.container) {
+      throw new Error("SnowFall: Container not found");
+    }
     this.container.appendChild(div);
     return div;
   };
@@ -135,7 +138,9 @@ class SnowFall {
       this.rainInterval();
       return;
     }
-    console.error("SnowFall: Container not found");
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
   };
   init = (): void => {
     this.injectCommonCSS();
