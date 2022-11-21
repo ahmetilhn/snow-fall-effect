@@ -48,6 +48,7 @@ _Imports into html are not supported. :(_
   sizeRange: [number, number],
   color: string,
   speed: number,
+  density: number;
 }
 ```
 
@@ -56,6 +57,7 @@ new SnowFall({
   sizeRange: [10, 20], // default (min 0)
   color: "#fff", // default
   speed: 10, // default (second)
+  density: 0.5; // default (recomended)
 });
 ```
 

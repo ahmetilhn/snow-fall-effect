@@ -7,7 +7,6 @@ class SnowFall {
     if (_config) {
       Object.assign(this.config, _config);
     }
-    this.init();
   }
   get cordinate(): { left: number; top: number } {
     const { innerHeight, innerWidth } = window;
@@ -127,17 +126,20 @@ class SnowFall {
     subContainer.innerHTML += this.icon;
     this.remove(randomID);
   };
-  makeItRain = () => {
-    setInterval(() => {
-      this.createSnow();
-    }, 1500);
+  rainInterval = setInterval(
+    this.createSnow,
+    (this.config.density * 10 * 1000) / 2
+  );
+  makeItRain = (): void => {
+    this.rainInterval;
   };
   init = () => {
     this.injectCommonCSS();
     this.createContainer();
-    setTimeout(() => {
-      this.makeItRain();
-    }, 500);
+    this.makeItRain();
+  };
+  public stopTheRain = (): void => {
+    clearInterval(this.rainInterval);
   };
 }
 
