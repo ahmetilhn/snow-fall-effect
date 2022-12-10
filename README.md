@@ -80,7 +80,9 @@ import { useEffect } from "react";
 import SnowFall from "snow-fall-effect";
 function App() {
   useEffect(() => {
-    new SnowFall();
+    const snowFall = new SnowFall();
+    snowFall.init();
+    snowFall.makeItRain();
   });
   return <div className="App"></div>;
 }
