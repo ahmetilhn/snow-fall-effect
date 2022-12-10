@@ -86,8 +86,8 @@ class SnowFall {
       subContainer: `
       width: ${width}px;
       height: ${height}px;
-        position: absolute;
-        left: ${this.cordinate.left - 30}px;
+      position: absolute;
+      left: ${this.cordinate.left - width - 50}px;
       animation: topToBottom ${this.config.speed}s linear forwards infinite;
       transform-origin: 50% 50%;
       display: flex;
