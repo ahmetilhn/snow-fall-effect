@@ -4,12 +4,12 @@ _It provides a realistic snowfall effect to your site to make your websites look
 
 _Demo:_ https://www.iksirsi.com/
 
-## Insatalation
+## Installation
 
 ##### Vue
 
 ```js
-import SnowFall from "snow-fall"
+import SnowFall from "snow-fall-effect"
 export default {
   data() {
     return {
@@ -17,7 +17,9 @@ export default {
     }
   }
   mounted() {
-    new SnowFall();
+    const snowFall = new SnowFall();
+    snowFall.init();
+    snowFall.makeItRain();
   }
 }
 ```
