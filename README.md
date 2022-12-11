@@ -83,7 +83,7 @@ function App() {
     const snowFall = new SnowFall();
     snowFall.init();
     snowFall.makeItRain();
-  });
+  }, []);
   return <div className="App"></div>;
 }
 
