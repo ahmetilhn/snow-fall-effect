@@ -70,6 +70,7 @@ class SnowFall {
   }
   injectGlobalCSS = () => {
     const style = document.createElement("style");
+    style.setAttribute("id", "snow-fall-global-style");
     style.innerHTML = this.globalStyle;
     document.head.appendChild(style);
   };
@@ -131,12 +132,12 @@ class SnowFall {
     subContainer.innerHTML += this.icon;
     this.remove(randomID);
   };
-  rainInterval = (): void => {
+  snowingInterval = (): void => {
     this.interval = setInterval(this.createSnow, 1000 / this.config.density);
   };
-  makeItRain = (): void => {
+  makeItSnow = (): void => {
     if (this.container) {
-      this.rainInterval();
+      this.snowingInterval();
       return;
     }
     if (this.interval) {
@@ -146,14 +147,21 @@ class SnowFall {
   init = (): void => {
     this.injectGlobalCSS();
     this.createContainer();
+    setTimeout(() => {
+      this.makeItSnow();
+    }, 1500);
   };
   clear = (): void => {
-    const elem = document.querySelectorAll(".snow-fall-container");
-    elem.forEach((item) => {
-      item.remove();
-    });
+    const elem = document.querySelector(".snow-fall-container");
+    const style = document.getElementById("snow-fall-global-style");
+    if (elem) {
+      elem.remove();
+    }
+    if (style) {
+      style.remove();
+    }
   };
-  public stopTheRain = (): void => {
+  public stopTheSnowing = (): void => {
     clearInterval(this.interval);
     setTimeout(() => {
       this.clear();
