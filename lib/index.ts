@@ -34,7 +34,7 @@ class SnowFall {
     </g>
     </svg>`;
   }
-  get commonCSS(): string {
+  get globalStyle(): string {
     return `
         @keyframes topToBottom {
             0%{
@@ -68,9 +68,9 @@ class SnowFall {
         }
     `;
   }
-  injectCommonCSS = () => {
+  injectGlobalCSS = () => {
     const style = document.createElement("style");
-    style.innerHTML = this.commonCSS;
+    style.innerHTML = this.globalStyle;
     document.head.appendChild(style);
   };
   get styles(): { svg: string; subContainer: string } {
@@ -87,6 +87,7 @@ class SnowFall {
       width: ${width}px;
       height: ${height}px;
       position: absolute;
+      z-index: 99999999;
       left: ${this.cordinate.left - width - 50}px;
       animation: topToBottom ${this.config.speed}s linear forwards infinite;
       transform-origin: 50% 50%;
@@ -143,7 +144,7 @@ class SnowFall {
     }
   };
   init = (): void => {
-    this.injectCommonCSS();
+    this.injectGlobalCSS();
     this.createContainer();
   };
   clear = (): void => {
