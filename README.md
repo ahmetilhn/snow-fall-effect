@@ -19,7 +19,6 @@ export default {
   mounted() {
     const snowFall = new SnowFall();
     snowFall.init();
-    snowFall.makeItRain();
   }
 }
 ```
@@ -40,7 +39,6 @@ export default ({ app }, inject) => {
         density: 1,
         sizeRange: [5, 25],
       });
-      snowFall.init();
       return snowFall;
     })()
   );
@@ -64,11 +62,11 @@ export default {
     }
   }
   mounted() {
-    this.$snowFall.makeItRain()
+    this.$snowFall.init();
   },
   destroyed() {
     // For performance
-    this.$snowFall.stopTheRain()
+    this.$snowFall.stopTheSnowing()
   },
 }
 ```
@@ -82,7 +80,7 @@ function App() {
   useEffect(() => {
     const snowFall = new SnowFall();
     snowFall.init();
-    snowFall.makeItRain();
+    snowFall.makeItSnow();
   }, []);
   return <div className="App"></div>;
 }
@@ -120,31 +118,31 @@ new SnowFall({
 
 ```js
 SnowFall {
-    config: config; // not recomended for use
-    interval: ReturnType<typeof setInterval>; // not recomended for use
-    constructor(_config: config); // not recomended for use
+    config: ConfigType;
+    interval: ReturnType<typeof setInterval>;
+    constructor(_config: ConfigType);
     get cordinate(): {
         left: number;
         top: number;
-    }; // not recomended for use
-    get width(): number; // not recomended for use
-    get icon(): string; // not recomended for use
-    get commonCSS(): string; // not recomended for use
-    injectCommonCSS: () => void; // not recomended for use
+    };
+    get width(): number;
+    get icon(): string;
+    get globalStyle(): string;
+    injectGlobalCSS: () => void;
     get styles(): {
         svg: string;
         subContainer: string;
-    }; // not recomended for use
-    createContainer: () => void; // not recomended for use
-    get container(): HTMLDivElement; // not recomended for use
-    remove: (id: string) => void; // not recomended for use
-    createSubContainer: () => HTMLElement; // not recomended for use
-    createSnow: () => void; // not recomended for use
-    rainInterval: () => void; // not recomended for use
-    makeItRain: () => void; // you can use
-    init: () => void; // you can use
-    clear: () => void; // you can use
-    stopTheRain: () => void; // you can use
+    };
+    createContainer: () => void;
+    get container(): HTMLDivElement;
+    remove: (id: string) => void;
+    createSubContainer: () => HTMLElement;
+    createSnow: () => void;
+    snowingInterval: () => void;
+    makeItSnow: () => void;
+    init: () => void;
+    clear: () => void;
+    stopTheSnowing: () => void;
 }
 ```
 
