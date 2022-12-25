@@ -80,7 +80,9 @@ function App() {
   useEffect(() => {
     const snowFall = new SnowFall();
     snowFall.init();
-    snowFall.makeItSnow();
+    return () => {
+      snowFall.stopTheSnowing()
+    };
   }, []);
   return <div className="App"></div>;
 }
